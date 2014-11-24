@@ -25,7 +25,6 @@
     </parent>
 
     <artifactId>lilrest-config</artifactId>
-    <version>0.1-SNAPHOT</version>
 
     <dependencies>
         <dependency>
