@@ -4,7 +4,7 @@ lilrest
 
 A little REST server.
 
-Ties Jetty, RESTEasy, Jackson, Skife Config and Guice together into an extensible little server.
+Ties Jetty, RESTEasy, Jackson, Skife Config and [Guice](https://github.com/google/guice) together into an extensible little server.
 
 It sets JDK 8 as a minimum baseline.
 
@@ -52,6 +52,7 @@ Now in a real controller you'd probably have a constructor into which you @Injec
         public static void main(String[] args) {
             new HelloServer().start();
         }
+        
         @Override
         protected ServletModule getMainModule() {
             return new ServletModule() {
@@ -64,7 +65,7 @@ Now in a real controller you'd probably have a constructor into which you @Injec
         
     }
 ```
-And boom, you're done - if you run this and hit http://localhost:8080/hello you'll get a friendly greeting. Yay! And it's all very MVC. Well, mostly Controller at this point. Let's add a Model in there. We don't really care too much about the view here.
+And boom, you're done - if you run this and browse to <a href="http://localhost:8080/hello">/hello</a> you'll get a friendly greeting. Yay! And it's all very MVC. Well, mostly Controller at this point. Let's add a Model in there. We don't really care too much about the view here.
 
 Returning Models
 ----------------
@@ -86,6 +87,7 @@ We could then augment our HelloResource class with a REST endpoint that, for exa
         public String hello(@PathParam("name") String name) {
             return new Person(42, name);
         }
+        
         @Path("/hello")
         @GET
         public String hello() {
@@ -99,13 +101,19 @@ We can then fetch anyone we like. If we hit http://localhost:8080/person/arthur 
 ```
 Configuration
 -------------
-LilREST mostly uses the pretty damn excellent [https://github.com/brianm/config-magic](Config Magic) for dealing with configuration. As you'll see by its home page, Config allows you define and annotate an interface with configuration
+LilREST mostly uses the pretty damn excellent <a href="https://github.com/brianm/config-magic">Config Magic</a> for dealing with configuration. As you'll see by its home page, Config allows you define and annotate an interface with configuration
 properties in a typesafe way. Which is so hot right now. So hot.
 
 LilREST uses Config Magic for its own config, and your apps extending it can use the same mechanism for theirs. You don't have to, of course, but can you remember a web application that never needed to be configured? Anyone? Bueller? Nope. So here's what you do.
 
-You can have as many config classes as you want. <b>Or none</b>. I like to do one per module, myself, but I'm a Separation Of Concerns evangelist.
+You can have as many config classes as you want. <b>Or none</b>. I like to do one per module, myself, but then again I'm a Separation Of Concerns evangelist. 
 
+The config module needs to know where your configuration properties file is. You can specify its path with as the system property "useConfig". That can either refer to a file on the filesystem or, if prepended with "classpath:", on the classpath. If no config file is specified, then we try to load config properties from system properties. e.g.:
+```
+   -DuseConfig=configdir/app.properties              # local file
+   -DuseConfig=classpath:conf/app.properties         # classpath
+   -spam.flavor=revolting -Dspam.cans=400293         # system properties
+```
 Define yourself an annotated configuration interface, e.g.:
 ```java
 public interface SpamConfig {
@@ -130,12 +138,12 @@ Then! Add a provider method to your module to tell the config module to bring yo
             bind(SpamResource.class);
         }
         @Provides
-        public JaxRsServerConfig serverConfiguration(ConfigFactory factory) {
-              return factory.extract(JaxRsServerConfig.class);
+        public SpamConfig serverConfiguration(ConfigFactory factory) {
+              return factory.extract(SpamConfig.class);
         }
     }
     
-    // a slightly more fleshed out example using config
+    // let's put that SpamConfig to use in a slightly more fleshed out example
     @Singleton
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/spam")
@@ -157,6 +165,10 @@ Then! Add a provider method to your module to tell the config module to bring yo
         }
     }
 ```
+Other useful info.
+------------------
+- [Guice best practices](https://github.com/google/guice/wiki/KeepConstructorsHidden)
+
 That's pretty much it.
 ----------------------
 Right, off you go then. Have fun.
