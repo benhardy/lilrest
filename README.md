@@ -14,7 +14,7 @@ Philosophy
 -----------
 LilREST is pretty adamant about using Guice to wire things together, in an explicit manner. This encourages you to think about separation of concerns from the start.
 
-This is a bit different to other worthy lightweight Java web containers such as the excellent [Spark](http://sparkjava.com/), in that it's all about that Guice, 'bout that Guice (no waffle). That is, it's all about dividing your project into domains of concern, packing those up into Modules, and just running it.
+This is a bit different to other worthy lightweight Java web containers such as the excellent [Spark](http://sparkjava.com/), in that it's really keen on using Guice Modules. That is, it's all about dividing your project into domains of concern, packing those up into Modules, and just running it.
 
  This results in a little more code up front, but because there is absolutely no magic involved, you can be sure that you won't be wiped out by much in the way of unexpected side effects from LilREST itself. 
 
@@ -149,10 +149,10 @@ Then! Add a provider method to your module to tell the config module to bring yo
     @Path("/spam")
     public final class SpamResource {
         private static final Logger LOG = LoggerFactory.getLogger(SpamResource.class);
-        private SpamConfig spamConfig;
+        private final SpamConfig spamConfig;
 
         @Inject
-        HealthResource(SpamConfig config) {
+        SpamResource(SpamConfig config) {
             LOG.debug("Creating SpamResource");
             this.spamConfig = config;
         }
