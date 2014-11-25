@@ -112,7 +112,7 @@ The config module needs to know where your configuration properties file is. You
 ```
    -DuseConfig=configdir/app.properties              # local file
    -DuseConfig=classpath:conf/app.properties         # classpath
-   -spam.flavor=revolting -Dspam.cans=400293         # system properties
+   -Dspam.flavor=revolting -Dspam.cans=400293        # system properties
 ```
 Define yourself an annotated configuration interface, e.g.:
 ```java
@@ -137,6 +137,7 @@ Then! Add a provider method to your module to tell the config module to bring yo
         public void configure() {
             bind(SpamResource.class);
         }
+        
         @Provides
         public SpamConfig serverConfiguration(ConfigFactory factory) {
               return factory.extract(SpamConfig.class);
