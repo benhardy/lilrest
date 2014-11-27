@@ -1,4 +1,4 @@
-<a href="https://travis-ci.org/benhardy/lilrest"><img src="https://travis-ci.org/benhardy/lilrest.svg?branch=master" align="right"/></a>
+<p align="right"><a href="https://travis-ci.org/opentable/puppet-iis"><img src="https://travis-ci.org/opentable/puppet-iis.svg?branch=master" alt="Build Status"/></a> <a href="https://codecov.io/github/benhardy/lilrest?branch=master"><img src="https://codecov.io/github/benhardy/lilrest/coverage.svg?branch=master" alt="codecov.io"></a>
 lilrest
 =======
 
