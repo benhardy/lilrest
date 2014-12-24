@@ -27,6 +27,16 @@ public class ConfigFactoryTest {
     }
 
     @Test
+    public void constructUnspecifiedFromSystemProperties() {
+        System.getProperties().remove("useConfig");
+        System.setProperty("somekey", "bork");
+        ConfigFactory factory = new ConfigFactory();
+        TestConfig config = factory.extract(TestConfig.class);
+        String value = config.someKey();
+        assertEquals("bork", value);
+    }
+
+    @Test
     public void constructFromFile() {
         System.setProperty("useConfig", "src/test/resources/test.properties");
         ConfigFactory factory = new ConfigFactory();
