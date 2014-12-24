@@ -66,6 +66,10 @@ public final class ConfigFactory {
             inStream = new FileInputStream(new File(location));
         } else {
             inStream = ConfigFactory.class.getClassLoader().getResourceAsStream(location);
+            if (inStream == null) {
+                throw new IllegalArgumentException("Couldn't find config file " + location
+                        + " in filesystem or classpath.");
+            }
         }
         return inStream;
     }
