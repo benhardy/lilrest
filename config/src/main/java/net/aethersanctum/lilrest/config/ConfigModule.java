@@ -21,6 +21,6 @@ public class ConfigModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(ConfigFactory.class);
+        bind(ConfigFactory.class).asEagerSingleton();
     }
 }
