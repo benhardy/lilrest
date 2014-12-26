@@ -13,6 +13,9 @@
  */
 package net.aethersanctum.lilrest.server;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
@@ -32,6 +35,7 @@ import org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextList
 import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
 
 import javax.annotation.Nonnull;
+import javax.inject.Singleton;
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
 
@@ -45,12 +49,27 @@ public final class JaxRsServerModule extends AbstractModule {
         binder().requireExplicitBindings();
         bind(GuiceResteasyBootstrapServletContextListener.class).in(Scopes.SINGLETON);
 
-        bind(JacksonJsonProvider.class).in(Scopes.SINGLETON);
+        bind(ObjectMapper.class).toProvider(this::customMapper);
 
         bind(GuiceFilter.class);
         bind(HttpServletDispatcher.class).in(Scopes.SINGLETON);
 
         install(new HealthModule());
+    }
+
+    @Provides
+    @Singleton
+    public JacksonJsonProvider jacksonJsonProvider(ObjectMapper mapper){
+        JacksonJsonProvider p = new JacksonJsonProvider();
+        p.setMapper(mapper);
+        return p;
+    }
+
+    public ObjectMapper customMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new Jdk8Module());
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return objectMapper;
     }
 
     @Provides

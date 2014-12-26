@@ -26,6 +26,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Optional;
 import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
@@ -64,7 +65,7 @@ public class JaxRsServerTest {
 
     @Test
     public void retrieveJson() throws Exception {
-        final String expected = "{\"number\":42}";
+        final String expected = "{\"number\":42,\"name\":\"Fred\"}";
         final String link = "http://localhost:8080/pojo";
         fetchExpecting(expected, link);
     }
@@ -100,14 +101,20 @@ public class JaxRsServerTest {
 
     public static class SomePojo {
         private final int number;
+        private final Optional<String> name;
 
-        public SomePojo(final int number) {
+        public SomePojo(final int number, final Optional<String> name) {
             this.number = number;
+            this.name = name;
         }
 
         public int getNumber() {
             return number;
         }
+
+        public Optional<String> getName() { return name; }
+
+        public Optional<String> nothing() { return Optional.empty(); }
     }
 
     @Singleton
@@ -123,7 +130,7 @@ public class JaxRsServerTest {
         @Path("/pojo")
         @GET
         public SomePojo somePojo() {
-            return new SomePojo(42);
+            return new SomePojo(42, Optional.of("Fred"));
         }
     }
 

@@ -86,6 +86,11 @@
             <artifactId>jackson-jaxrs-json-provider</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+        </dependency>
+
         <!-- RESTEasy -->
         <dependency>
             <groupId>org.jboss.resteasy</groupId>

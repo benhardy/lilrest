@@ -14,8 +14,11 @@
 package net.aethersanctum.lilrest.config;
 
 import org.skife.config.ConfigurationObjectFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
+import javax.inject.Singleton;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,18 +30,22 @@ import java.util.Properties;
  * Allows Guice modules to bind a configuration object created by
  * Config Magic (skife).
  */
+@Singleton
 public final class ConfigFactory {
+    private static final Logger LOG = LoggerFactory.getLogger(ConfigFactory.class);
 
     private final Properties configProperties;
     private final ConfigurationObjectFactory factory;
 
     public <T> T extract(@Nonnull Class<T> configClass) {
+        LOG.info("extracting {}", configClass.getCanonicalName());
         return factory.build(configClass);
     }
 
     public ConfigFactory() {
         this.configProperties = findConfigProperties();
         this.factory = new ConfigurationObjectFactory(configProperties);
+        LOG.info("loaded {} config properties", configProperties.size());
     }
 
     private static Properties findConfigProperties() {

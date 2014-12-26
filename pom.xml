@@ -162,6 +162,11 @@
                 <version>${dep.jackson.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jdk8</artifactId>
+                <version>${dep.jackson.version}</version>
+            </dependency>
             <!-- RESTEasy -->
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
