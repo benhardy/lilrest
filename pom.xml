@@ -235,7 +235,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.9</version><!-- for java 8 compatability -->
+                    <version>2.9</version><!-- override basepom for java 8 compatability -->
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>2.9.1</version><!-- override basepom for java 8 compatability -->
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
