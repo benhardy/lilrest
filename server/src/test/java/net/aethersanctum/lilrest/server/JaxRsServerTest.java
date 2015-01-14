@@ -13,7 +13,7 @@
  */
 package net.aethersanctum.lilrest.server;
 
-import com.google.inject.servlet.ServletModule;
+import org.jboss.resteasy.plugins.providers.html.View;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.rules.ExternalResource;
@@ -86,19 +86,6 @@ public class JaxRsServerTest {
         }
     }
 
-    public static class TestServer extends JaxRsServer {
-
-        @Override
-        protected ServletModule getMainModule() {
-            return new ServletModule() {
-                @Override
-                public void configureServlets() {
-                    bind(TestResource.class).asEagerSingleton();
-                }
-            };
-        }
-    }
-
     public static class SomePojo {
         private final int number;
         private final Optional<String> name;
@@ -131,6 +118,14 @@ public class JaxRsServerTest {
         @GET
         public SomePojo somePojo() {
             return new SomePojo(42, Optional.of("Fred"));
+        }
+
+        @Path("/pojo.html")
+        @GET
+        @Produces("text/html")
+        public View thingy() {
+            final SomePojo pojo = new SomePojo(42, Optional.of("Fred"));
+            return new View("pojo.jsp");
         }
     }
 

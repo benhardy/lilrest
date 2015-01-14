@@ -19,9 +19,11 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -44,5 +46,12 @@ public final class HealthResource {
     @Nonnull
     public Health health() {
         return healthService.getCurrentHealth();
+    }
+
+    @GET
+    @Path("/ping")
+    @Nonnull
+    public Ping ping(@Context HttpServletRequest req) {
+        return Ping.of(req);
     }
 }
