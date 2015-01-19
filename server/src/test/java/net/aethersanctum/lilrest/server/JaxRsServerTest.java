@@ -13,7 +13,6 @@
  */
 package net.aethersanctum.lilrest.server;
 
-import org.jboss.resteasy.plugins.providers.html.View;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.rules.ExternalResource;
@@ -120,13 +119,6 @@ public class JaxRsServerTest {
             return new SomePojo(42, Optional.of("Fred"));
         }
 
-        @Path("/pojo.html")
-        @GET
-        @Produces("text/html")
-        public View thingy() {
-            final SomePojo pojo = new SomePojo(42, Optional.of("Fred"));
-            return new View("pojo.jsp");
-        }
-    }
+     }
 
 }
