@@ -16,6 +16,7 @@ package net.aethersanctum.lilrest.server;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
@@ -67,7 +68,9 @@ public final class JaxRsServerModule extends AbstractModule {
 
     public ObjectMapper customMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new Jdk8Module());
+        objectMapper.registerModules(
+                new Jdk8Module(),
+                new JSR310Module());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return objectMapper;
     }
