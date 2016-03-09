@@ -18,7 +18,7 @@
     <parent>
         <groupId>org.basepom</groupId>
         <artifactId>basepom-standard-oss</artifactId>
-        <version>9</version>
+        <version>15</version>
     </parent>
 
     <groupId>net.aethersanctum.lilrest</groupId>
@@ -84,6 +84,11 @@
                 <groupId>org.skife.config</groupId>
                 <artifactId>config-magic</artifactId>
                 <version>0.17</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>3.0.1</version>
             </dependency>
 
             <!-- Servlets -->
@@ -186,13 +191,7 @@
                 <artifactId>resteasy-jaxrs</artifactId>
                 <version>${dep.resteasy.version}</version>
                 <exclusions>
-                    <!-- the annotations in this already get dragged in by
-                         com.google.code.findbugs annotations -->
-                    <exclusion>
-                        <groupId>net.jcip</groupId>
-                        <artifactId>jcip-annotations</artifactId>
-                    </exclusion>
-                    <!-- and javax.annotation:jsr250-api gets dragged in by resteasy-guice -->
+                    <!-- javax.annotation:jsr250-api gets dragged in by resteasy-guice -->
                     <exclusion>
                         <groupId>org.jboss.spec.javax.annotation</groupId>
                         <artifactId>jboss-annotations-api_1.1_spec</artifactId>
