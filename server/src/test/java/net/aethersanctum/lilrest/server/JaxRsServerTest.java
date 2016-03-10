@@ -123,7 +123,5 @@ public class JaxRsServerTest {
         public SomePojo somePojo() {
             return new SomePojo(42, Optional.of("Fred"));
         }
-
      }
-
 }
