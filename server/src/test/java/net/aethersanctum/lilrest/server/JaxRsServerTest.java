@@ -13,27 +13,30 @@
  */
 package net.aethersanctum.lilrest.server;
 
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.rules.ExternalResource;
+import static org.junit.Assert.assertEquals;
 
-import javax.inject.Singleton;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Optional;
 import java.util.Scanner;
+import javax.inject.Singleton;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.ClassRule;
+import org.junit.Test;
+import org.junit.rules.ExternalResource;
 
 /**
  * Basic smoke test
  */
 public class JaxRsServerTest {
+
+    public static final int SERVER_PORT = 8080;
+    public static final String SERVER_URL_BASE = "http://localhost:" + SERVER_PORT;
 
     @ClassRule
     public static ExternalResource serverRule = new ExternalResource() {
@@ -42,6 +45,7 @@ public class JaxRsServerTest {
 
         @Override
         protected void before() throws Throwable {
+            // don't want to call join() here, keep my thread separate to server's.
             server.getJettyServer().start();
         }
 
@@ -58,26 +62,27 @@ public class JaxRsServerTest {
     @Test
     public void retrieveString() throws Exception {
         final String expected = "Hello";
-        final String link = "http://localhost:8080/hello";
-        fetchExpecting(expected, link);
+        fetchExpecting(expected, "/hello");
     }
 
     @Test
     public void retrieveJson() throws Exception {
-        final String expected = "{\"number\":42,\"name\":\"Fred\"}";
-        final String link = "http://localhost:8080/pojo";
-        fetchExpecting(expected, link);
+        final String expected = jsonFixQuotes("{'number':42,'name':'Fred'}");
+        fetchExpecting(expected, "/pojo");
     }
 
     @Test
     public void healthReturnsStatusOK() throws Exception {
-        final String expected = "{\"status\":\"OK\"}";
-        final String link = "http://localhost:8080/api/health";
-        fetchExpecting(expected, link);
+        final String expected = jsonFixQuotes("{'status':'OK'}");
+        fetchExpecting(expected, "/api/health");
     }
 
-    private void fetchExpecting(final String expected, final String link) throws IOException {
-        final URL url = new URL(link);
+    private String jsonFixQuotes(String json) {
+        return json.replaceAll("'", "\"");
+    }
+
+    private void fetchExpecting(final String expected, final String relativeLink) throws IOException {
+        final URL url = new URL(SERVER_URL_BASE + relativeLink);
         try (final InputStreamReader is = new InputStreamReader(url.openStream());
              final Scanner scanner = new Scanner(is)) {
             final String line = scanner.nextLine();
