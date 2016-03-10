@@ -61,7 +61,6 @@
         <java.version>1.8</java.version>
         <project.build.targetJdk>${java.version}</project.build.targetJdk>
         <dep.jetty.version>9.2.3.v20140905</dep.jetty.version>
-        <dep.guice.version>4.0-beta5</dep.guice.version>
         <dep.jackson.version>2.4.3</dep.jackson.version>
         <dep.resteasy.version>3.0.8.Final</dep.resteasy.version>
     </properties>
