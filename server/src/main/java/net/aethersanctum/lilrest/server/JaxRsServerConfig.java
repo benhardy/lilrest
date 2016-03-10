@@ -21,7 +21,7 @@ import org.skife.config.TimeSpan;
  */
 public interface JaxRsServerConfig {
     @Config("basic.server.listen-port")
-    @Default("8081")
+    @Default("8080")
     int port();
 
     @Config("basic.server.max-threads")
