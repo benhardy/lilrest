@@ -18,6 +18,8 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.Scanner;
 import javax.inject.Singleton;
@@ -67,7 +69,7 @@ public class JaxRsServerTest {
 
     @Test
     public void retrieveJson() throws Exception {
-        final String expected = jsonFixQuotes("{'number':42,'name':'Fred'}");
+        final String expected = jsonFixQuotes("{'number':42,'name':'Fred','originalDate':1457631817.517242732}");
         fetchExpecting(expected, "/pojo");
     }
 
@@ -93,10 +95,12 @@ public class JaxRsServerTest {
     public static class SomePojo {
         private final int number;
         private final Optional<String> name;
+        private final ZonedDateTime originalDate;
 
         public SomePojo(final int number, final Optional<String> name) {
             this.number = number;
             this.name = name;
+            this.originalDate = ZonedDateTime.of(2016, 3, 10, 17, 43, 37, 517242732, ZoneId.of("UTC"));
         }
 
         public int getNumber() {
@@ -106,6 +110,10 @@ public class JaxRsServerTest {
         public Optional<String> getName() { return name; }
 
         public Optional<String> nothing() { return Optional.empty(); }
+
+        public ZonedDateTime getOriginalDate() {
+            return originalDate;
+        }
     }
 
     @Singleton
