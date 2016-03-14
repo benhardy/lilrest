@@ -78,13 +78,13 @@ What if we had some model class, say, called Person, and wanted to render that a
         // hid constructor and getters, nothing unusual there.
     }
 ```
-We could then augment our HelloResource class with a REST endpoint that, for example returns a Person given a name.
+We could then augment our HelloResource class with a REST endpoint that, for example returns a Person given a name. Note that it returns a Person not a String. This makes testing stupefyingly easy because you can test field values on your model rather than just hoping that the model gets rendered to a String in the expected way.
 ```java
     public class HelloResource {
         // why are all these people 42 years old?
         @Path("/person/{name}")
         @GET
-        public String hello(@PathParam("name") String name) {
+        public Person hello(@PathParam("name") String name) {
             return new Person(42, name);
         }
         
