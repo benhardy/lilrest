@@ -50,7 +50,7 @@ public final class JaxRsServerModule extends AbstractModule {
         binder().requireExplicitBindings();
         bind(GuiceResteasyBootstrapServletContextListener.class).in(Scopes.SINGLETON);
 
-        bind(ObjectMapper.class).toProvider(this::customMapper);
+        bind(ObjectMapper.class).toProvider(this::customMapper).asEagerSingleton();
 
         bind(GuiceFilter.class);
         bind(HttpServletDispatcher.class).in(Scopes.SINGLETON);
