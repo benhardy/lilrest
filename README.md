@@ -97,7 +97,7 @@ We could then augment our HelloResource class with a REST endpoint that, for exa
 ```
 We can then fetch anyone we like. If we hit http://localhost:8080/person/arthur in our browser, we'll get back a little old blob of json, which is the serialized Person object we created, with no further work required, thanks to Jackson.
 ```json
-{"name":"arthur",age:42}
+{"name":"arthur","age":42}
 ```
 Configuration
 -------------
