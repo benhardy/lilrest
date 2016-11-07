@@ -68,10 +68,17 @@
     <modules>
         <module>config</module>
         <module>server</module>
+        <module>examples</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>net.aethersanctum.lilrest</groupId>
+                <artifactId>lilrest-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- Config -->
             <dependency>
                 <groupId>net.aethersanctum.lilrest</groupId>
@@ -220,7 +227,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.7</version>
+                <version>1.7.20</version>
             </dependency>
 
             <!-- Testing -->
