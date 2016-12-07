@@ -27,7 +27,7 @@ In a nutshell: add the following dependency to your pom.xml (or equivalent), the
             <groupId>net.aethersanctum.lilrest</groupId>
             <artifactId>lilrest-server</artifactId>
             <version>0.1.3</version>
-        <dependency>
+        </dependency>
 ```
 
 Simple Demo
