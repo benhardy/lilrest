@@ -49,7 +49,7 @@ Now in a real controller you'd probably have a constructor into which you @Injec
 
 ```java
     public class HelloServer extends JaxRsServer {
-        public static void main(String[] args) {
+        public static void main(String[] args) throws Exception {
             new HelloServer().start();
         }
         
