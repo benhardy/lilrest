@@ -17,8 +17,8 @@
 
     <parent>
         <groupId>org.basepom</groupId>
-        <artifactId>basepom-standard-oss</artifactId>
-        <version>15</version>
+        <artifactId>basepom-oss</artifactId>
+        <version>25</version>
     </parent>
 
     <groupId>net.aethersanctum.lilrest</groupId>
@@ -63,6 +63,7 @@
         <dep.jetty.version>9.2.3.v20140905</dep.jetty.version>
         <dep.jackson.version>2.4.3</dep.jackson.version>
         <dep.resteasy.version>3.0.8.Final</dep.resteasy.version>
+        <dep.guice.version>4.1.0</dep.guice.version>
     </properties>
 
     <modules>
@@ -230,6 +231,12 @@
                 <version>1.7.20</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>23.5-jre</version>
+            </dependency>
+
             <!-- Testing -->
             <dependency>
                 <groupId>junit</groupId>
@@ -244,23 +251,6 @@
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.9</version><!-- override basepom for java 8 compatability -->
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.9.1</version><!-- override basepom for java 8 compatability -->
-                    <dependencies>
-                        <dependency>
-                            <groupId>com.puppycrawl.tools</groupId>
-                            <artifactId>checkstyle</artifactId>
-                            <version>6.1</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
