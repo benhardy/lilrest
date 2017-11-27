@@ -209,6 +209,7 @@
                         <groupId>org.jboss.spec.javax.annotation</groupId>
                         <artifactId>jboss-annotations-api_1.1_spec</artifactId>
                     </exclusion>
+                    <!-- would rather use the standard javax.ws.rs jar to avoid upsetting dependency analyzer -->
                     <exclusion>
                         <groupId>org.jboss.spec.javax.ws.rs</groupId>
                         <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
@@ -221,6 +222,7 @@
                 <artifactId>resteasy-guice</artifactId>
                 <version>${dep.resteasy.version}</version>
                 <exclusions>
+                    <!-- would rather use the standard javax.ws.rs jar to avoid upsetting dependency analyzer -->
                     <exclusion>
                         <groupId>org.jboss.spec.javax.ws.rs</groupId>
                         <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
