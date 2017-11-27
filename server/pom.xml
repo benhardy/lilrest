@@ -101,14 +101,15 @@
         </dependency>
 
         <!-- RESTEasy -->
+
         <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jaxrs</artifactId>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
-            <artifactId>jaxrs-api</artifactId>
+            <artifactId>resteasy-jaxrs</artifactId>
         </dependency>
 
         <dependency>
