@@ -18,6 +18,8 @@ import javax.annotation.Nonnull;
 /**
  */
 final class Health {
+
+    @Nonnull
     private final String status;
 
     Health(@Nonnull String status) {
